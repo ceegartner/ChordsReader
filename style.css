@@ -1,0 +1,86 @@
+body {
+    font-family: 'mulish', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 10px;
+}
+
+.song {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.header-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    margin-bottom: 20px;
+    background-color: #f4f4f4;
+    border-radius: 50px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+
+}
+
+.song-info {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    flex-direction: column;
+    font-size: 1.5em;
+}
+
+#song-title {
+    font-style: italic;
+}
+
+#song-artist {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+#song-album {
+    font-size: 1.1rem;
+    color: #959595;
+}
+
+#album-image {
+    width: 100px; /* Fixe la largeur à 100px */
+    height: 100px; /* Fixe la hauteur à 100px */
+    border-radius: 10%; /* Rend les coins complètement arrondis pour créer un cercle */
+    object-fit: cover; /* S'assure que l'image couvre complètement la zone sans être déformée */
+}
+
+.section-title {
+    font-size: 1.3em;
+    margin-top: 30px;
+    color: #959595;
+}
+
+.section {
+    padding-left: 15px;
+}
+
+.line {
+    font-size: 1em;
+    margin-top: 25px;
+    position: relative; /* Nécessaire pour le positionnement absolu des noms d'accords */
+    margin-bottom: 20px; /* Espacer les lignes pour laisser de la place aux noms d'accords */
+}
+
+.chord {
+    display: inline-block;
+    position: relative; /* Pour le positionnement des noms d'accords */
+    margin-right: 5px;
+    padding: 2px 5px; /* Padding pour mieux visualiser le surlignage */
+    white-space: pre; /* Pour conserver les espaces */
+    border-radius: 4px;
+
+}
+
+.chord-name {
+    font-weight: bold;
+    padding-left: 5px;
+}
