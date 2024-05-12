@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
         LIMIT 1
         `;
     const encodedQuery = encodeURIComponent(query);
-    const endpointUrl = "http://dbpedia.org/sparql";
+    const endpointUrl = "https://dbpedia.org/sparql";
     const url = `${endpointUrl}?query=${encodedQuery}&format=json`;
 
     fetch(url)
