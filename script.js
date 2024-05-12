@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const chordColors = {
         'Am': 'rgb(255, 0, 0)',
         'A': 'rgb(200, 0, 0)',
-        'C': 'rgb(196, 128, 0)',
-        'F': 'rgb(0, 200, 0)', 
+        'C': 'rgb(255, 192, 0)',
+        'F': 'rgb(0, 192, 0)', 
         'G': 'rgb(128, 128, 255)'
     };
 
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
         chord.parentNode.insertBefore(nameTag, chord);
 
         // Appliquer la couleur de fond au texte de l'accord
-        chord.style.backgroundColor = color.replace(')', ', 0.2)'); // Ajouter de la transparence
+        chord.style.backgroundColor = color.replace(')', ', 0.15)'); // Ajouter de la transparence
     });
 
     const strArtist = document.getElementById('song-artist').textContent.replace(' ', '_');
@@ -85,6 +85,16 @@ document.addEventListener("DOMContentLoaded", function() {
     })
     .catch(error => {
         console.error("Error fetching data: ", error);
+    });
+
+
+    const button = document.getElementById('toggleColumns');
+    const song = document.querySelector('.song');
+    let columnCount = 1;
+    
+    button.addEventListener('click', function() {
+        columnCount = columnCount < 4 ? columnCount + 1 : 1;
+        song.style.columnCount = columnCount;
     });
 
 });

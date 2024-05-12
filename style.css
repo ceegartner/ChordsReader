@@ -5,19 +5,24 @@ body {
     padding: 10px;
 }
 
-.song {
+.whole-page {
     background: white;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .header-info {
+    width: -webkit-fill-available;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    column-gap: 30px;
     padding: 20px 40px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     background-color: #f4f4f4;
     border-radius: 50px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -49,18 +54,23 @@ body {
 #album-image {
     width: 100px; /* Fixe la largeur à 100px */
     height: 100px; /* Fixe la hauteur à 100px */
-    border-radius: 10%; /* Rend les coins complètement arrondis pour créer un cercle */
+    border-radius: 6px; /* Rend les coins complètement arrondis pour créer un cercle */
     object-fit: cover; /* S'assure que l'image couvre complètement la zone sans être déformée */
+}
+
+.song {
+    column-count: 1;
+    column-gap: 40px; 
 }
 
 .section-title {
     font-size: 1.3em;
-    margin-top: 30px;
     color: #959595;
 }
 
 .section {
     padding-left: 15px;
+    margin-bottom: 30px;
 }
 
 .line {
@@ -83,4 +93,23 @@ body {
 .chord-name {
     font-weight: bold;
     padding-left: 5px;
+}
+
+.floating-button {
+    position: fixed;
+    right: 30px;
+    bottom: 10px;
+    padding: 5px 10px;
+    background-color: #ff00e6;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 1000;
+    opacity: 0.6;
+    transition: 0.2s;
+}
+
+.floating-button:hover {
+    opacity: 0.9;
 }
