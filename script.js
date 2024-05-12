@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.log(`Album: ${result.albumName.value}`);
                 console.log(`Cover Art URL: ${result.coverArt.value}`);
                 const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-                const url2 = `http://en.wikipedia.org/w/api.php?format=xml&action=query&prop=imageinfo&iiprop=url|size&titles=File:${result.coverArt.value}`;
+                const url2 = `https://en.wikipedia.org/w/api.php?format=xml&action=query&prop=imageinfo&iiprop=url|size&titles=File:${result.coverArt.value}`;
                 fetch(proxyUrl + url2)
                 .then(response => response.text()) 
                 .then(str => (new window.DOMParser()).parseFromString(str, "text/xml"))
