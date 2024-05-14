@@ -66,18 +66,19 @@ body {
 .section-title {
     font-size: 1.3em;
     color: #959595;
+    margin-bottom: 15px;
 }
 
 .section {
     padding-left: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .line {
     font-size: 1em;
-    margin-top: 25px;
+    margin-top: 10px;
     position: relative; /* Nécessaire pour le positionnement absolu des noms d'accords */
-    margin-bottom: 20px; /* Espacer les lignes pour laisser de la place aux noms d'accords */
+    line-height: 270%;
 }
 
 .chord {
@@ -87,7 +88,17 @@ body {
     padding: 2px 5px; /* Padding pour mieux visualiser le surlignage */
     white-space: pre; /* Pour conserver les espaces */
     border-radius: 4px;
+    line-height: 100%;
+}
 
+.chord::before {
+    content: attr(name);
+    color: var(--chord-color);
+    position: absolute;
+    left: 0;
+    top: -110%;                 /* Déplace le texte au-dessus de l'élément span */
+    font-weight: bold;
+    padding: 2px 5px;
 }
 
 .chord-name {
@@ -95,10 +106,17 @@ body {
     padding-left: 5px;
 }
 
-.floating-button {
+#floatingButtons {
     position: fixed;
     right: 30px;
     bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    column-gap: 10px;
+}
+
+.floating-button {
     padding: 5px 10px;
     background-color: #ff00e6;
     color: white;
@@ -106,10 +124,25 @@ body {
     border-radius: 10px;
     cursor: pointer;
     z-index: 1000;
-    opacity: 0.6;
+    opacity: 0.7;
     transition: 0.2s;
+    font-size: 0.8em;
 }
 
 .floating-button:hover {
     opacity: 0.9;
+}
+
+.text-size-button {
+    font-weight: bolder;
+    font-size: 1.2em;
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1000;
 }

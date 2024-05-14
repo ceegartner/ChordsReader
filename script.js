@@ -2,7 +2,48 @@
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    console.log('DOM chargé !');
+
+    WriteAndColorizeChords();
+
+    // getAlbumCover();
+
+    const button = document.getElementById('toggleColumns');
+    const song = document.querySelector('.song');
+    let columnCount = 1;
+    
+    button.addEventListener('click', function() {
+        columnCount = columnCount < 4 ? columnCount + 1 : 1;
+        song.style.columnCount = columnCount;
+    });
+
+
+    const increaseButton = document.getElementById('increaseText');
+    const decreaseButton = document.getElementById('decreaseText');
+    const textElements = document.querySelectorAll('.line'); // Cible les paragraphes dans .content
+
+    let fontSize = 16; // Taille de police initiale
+
+    increaseButton.addEventListener('click', function() {
+        fontSize += 2;
+        updateFontSize();
+    });
+
+    decreaseButton.addEventListener('click', function() {
+        fontSize -= 2;
+        updateFontSize();
+    });
+
+    function updateFontSize() {
+        textElements.forEach(function(element) {
+            element.style.fontSize = `${fontSize}px`;
+            // WriteAndColorizeChords();
+        });
+    }
+
+});
+
+
+function WriteAndColorizeChords() {
     const chords = document.querySelectorAll('.chord');
 
     // Définition des couleurs pour chaque type d'accord
@@ -18,22 +59,15 @@ document.addEventListener("DOMContentLoaded", function() {
     chords.forEach(chord => {
         const chordName = chord.getAttribute('name');
         const color = chordColors[chordName] || '#DDD'; // Couleur par défaut si non définie
-
-        // Créer un élément pour afficher le nom de l'accord
-        const nameTag = document.createElement('div');
-        nameTag.classList.add('chord-name');
-        nameTag.style.color = color; // Appliquer la couleur
-        nameTag.style.position = 'absolute';
-        nameTag.style.left = chord.offsetLeft + 'px'; 
-        nameTag.style.top = '-20px'; // Position au-dessus du span
-        nameTag.textContent = chordName;
-        
-        // Insérer le nom de l'accord avant le span dans le DOM
-        chord.parentNode.insertBefore(nameTag, chord);
+        chord.style.setProperty('--chord-color', color);
 
         // Appliquer la couleur de fond au texte de l'accord
         chord.style.backgroundColor = color.replace(')', ', 0.15)'); // Ajouter de la transparence
     });
+}
+
+
+function getAlbumCover() {
 
     const strArtist = document.getElementById('song-artist').textContent.replace(' ', '_');
     const strAlbum = document.getElementById('song-album').textContent;
@@ -87,14 +121,4 @@ document.addEventListener("DOMContentLoaded", function() {
         console.error("Error fetching data: ", error);
     });
 
-
-    const button = document.getElementById('toggleColumns');
-    const song = document.querySelector('.song');
-    let columnCount = 1;
-    
-    button.addEventListener('click', function() {
-        columnCount = columnCount < 4 ? columnCount + 1 : 1;
-        song.style.columnCount = columnCount;
-    });
-
-});
+}
