@@ -17,28 +17,42 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 
-    const increaseButton = document.getElementById('increaseText');
-    const decreaseButton = document.getElementById('decreaseText');
-    const textElements = document.querySelectorAll('.line'); // Cible les paragraphes dans .content
+    const increaseSizeButton = document.getElementById('increaseText');
+    const decreaseSizeButton = document.getElementById('decreaseText');
+    const increaseSpacingButton = document.getElementById('increaseSpacing');
+    const decreaseSpacingButton = document.getElementById('decreaseSpacing');
 
-    let fontSize = 16; // Taille de police initiale
+    let textScale = 1; // Echelle de la police
+    let spacing = 1; // Espacement entre les lignes
 
-    increaseButton.addEventListener('click', function() {
-        fontSize += 2;
+    increaseSizeButton.addEventListener('click', function() {
+        textScale += 0.1;
         updateFontSize();
     });
 
-    decreaseButton.addEventListener('click', function() {
-        fontSize -= 2;
+    decreaseSizeButton.addEventListener('click', function() {
+        textScale -= 0.1;
         updateFontSize();
+    });
+
+    increaseSpacingButton.addEventListener('click', function() {
+        spacing += 0.1;
+        updateSpacing();
+    });
+
+    decreaseSpacingButton.addEventListener('click', function() {
+        spacing -= 0.1;
+        updateSpacing();
     });
 
     function updateFontSize() {
-        textElements.forEach(function(element) {
-            element.style.fontSize = `${fontSize}px`;
-            // WriteAndColorizeChords();
-        });
+        document.documentElement.style.setProperty('--textScale', textScale);
     }
+
+    function updateSpacing() {
+        document.documentElement.style.setProperty('--spacing', spacing);
+    }
+    
 
 });
 

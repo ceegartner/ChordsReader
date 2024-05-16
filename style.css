@@ -1,3 +1,8 @@
+:root {
+    --textScale: 1;
+    --spacing: 1; 
+}
+
 body {
     font-family: 'mulish', sans-serif;
     background-color: #f4f4f4;
@@ -56,6 +61,7 @@ body {
     height: 100px; /* Fixe la hauteur à 100px */
     border-radius: 6px; /* Rend les coins complètement arrondis pour créer un cercle */
     object-fit: cover; /* S'assure que l'image couvre complètement la zone sans être déformée */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 .song {
@@ -64,28 +70,28 @@ body {
 }
 
 .section-title {
-    font-size: 1.3em;
+    font-size: calc(1.3em * var(--textScale));
     color: #959595;
-    margin-bottom: 15px;
+    margin-bottom: calc(15px * var(--spacing));
 }
 
 .section {
     padding-left: 15px;
-    margin-bottom: 20px;
+    margin-bottom: calc(20px * var(--spacing));
 }
 
 .line {
-    font-size: 1em;
-    margin-top: 10px;
+    font-size: calc(1em * var(--textScale));
+    margin-top: calc(10px * var(--spacing));
     position: relative; /* Nécessaire pour le positionnement absolu des noms d'accords */
-    line-height: 270%;
+    line-height:calc(270% * var(--spacing));
 }
 
 .chord {
     display: inline-block;
     position: relative; /* Pour le positionnement des noms d'accords */
-    margin-right: 5px;
-    padding: 2px 5px; /* Padding pour mieux visualiser le surlignage */
+    margin-right: calc(4px * var(--textScale));
+    padding: 2px 4px;
     white-space: pre; /* Pour conserver les espaces */
     border-radius: 4px;
     line-height: 100%;
@@ -96,17 +102,13 @@ body {
     color: var(--chord-color);
     position: absolute;
     left: 0;
-    top: -110%;                 /* Déplace le texte au-dessus de l'élément span */
+    top: calc(-22px * var(--textScale) * var(--spacing));
+    /* top: calc(-110% * var(--spacing)); */
     font-weight: bold;
     padding: 2px 5px;
 }
 
-.chord-name {
-    font-weight: bold;
-    padding-left: 5px;
-}
-
-#floatingButtons {
+#settingsMenu {
     position: fixed;
     right: 30px;
     bottom: 10px;
