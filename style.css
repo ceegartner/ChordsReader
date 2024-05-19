@@ -39,11 +39,11 @@ body {
     align-items: start;
     justify-content: space-between;
     flex-direction: column;
-    font-size: 1.5em;
 }
 
 #song-title {
     font-style: italic;
+    font-size: 1.5em;
 }
 
 #song-artist {
@@ -140,6 +140,7 @@ body {
     font-size: 1.2em;
     width: 20px;
     height: 20px;
+    line-height: 20px;
     background-color: #ffffff;
     color: rgb(0, 0, 0);
     border: none;
@@ -148,3 +149,44 @@ body {
     padding: 0;
     z-index: 1000;
 }
+
+
+/* Media queries */
+@media only screen and (max-width: 768px) {
+
+    .whole-page {
+        padding: 20px;
+    }
+
+    .header-info {
+        column-gap: 10px;
+        padding: 15px 20px;
+        margin-bottom: 20px;
+        border-radius: 30px;
+    }
+    #song-title {
+        font-size: 1.2em;
+    }
+    #song-artist {
+        font-size: 1.0em;
+    }
+    #song-album {
+        font-size: 1.0em;
+    }
+    #album-image {
+        width: 70px;
+        height: 70px;
+    }
+
+
+
+    /* .floating-button {
+        font-size: 2em;
+    }
+    .text-size-button {
+        font-size: 2em;
+        width: 40px;
+        height: 40px;
+    } */
+
+} 
