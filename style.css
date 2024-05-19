@@ -70,13 +70,19 @@ body {
 }
 
 .section-title {
+    padding-left: 15px;
     font-size: calc(1.3em * var(--textScale));
     color: #959595;
     margin-bottom: calc(15px * var(--spacing));
 }
 
+.section-title::before {
+    content: "\25B6"; /* Code Unicode du caractère ▶ */
+    margin-right: 5px; /* Ajoute un espace entre le caractère et le texte */
+    color:#e3e3e3
+}
+
 .section {
-    padding-left: 15px;
     margin-bottom: calc(20px * var(--spacing));
 }
 
@@ -111,6 +117,7 @@ body {
 #settingsMenu {
     position: fixed;
     right: 30px;
+    margin-left: 30px;
     bottom: 10px;
     display: flex;
     flex-direction: row;
@@ -129,10 +136,19 @@ body {
     opacity: 0.7;
     transition: 0.2s;
     font-size: 0.8em;
+    display: flex;
+    align-items: center;
 }
 
 .floating-button:hover {
     opacity: 0.9;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    margin-left: 10px;
+    column-gap: 4px;
 }
 
 .text-size-button {
@@ -153,6 +169,11 @@ body {
 
 /* Media queries */
 @media only screen and (max-width: 768px) {
+
+    body {
+        padding: 0;
+        margin: 0;
+    }
 
     .whole-page {
         padding: 20px;
@@ -178,7 +199,10 @@ body {
         height: 70px;
     }
 
-
+    #settingsMenu {
+        right: 10px;
+        margin-left: 10px;
+    }
 
     /* .floating-button {
         font-size: 2em;
