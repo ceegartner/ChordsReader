@@ -1,17 +1,44 @@
+const chordsHighlightOpacityValue = 0.15;
+let chordsHighlighted = true;
+var hyphensVisible = true;
+
+// Définition des couleurs pour chaque type d'accord
+const chordColors = {
+    'Am': 'rgb(255, 0, 0)',
+    'A': 'rgb(200, 0, 0)',
+    'C': 'rgb(255, 192, 0)',
+    'F': 'rgb(0, 192, 0)', 
+    'G': 'rgb(128, 128, 255)'
+};
 
 
 document.addEventListener("DOMContentLoaded", function() {
 
 
+    document.documentElement.style.setProperty('--chord-opacity', chordsHighlightOpacityValue);
+
+    const chords = document.querySelectorAll('.chord');
+    chords.forEach(chord => {
+        chord.innerHTML = chord.innerHTML.replace(/-/g, '&#8209;'); // transforme les tirets en tirets insécables
+        const chordName = chord.getAttribute('name');
+        let color = chordColors[chordName] || '#DDD'; // Couleur par défaut si non définie
+        chord.style.setProperty('--chord-color', color);
+    });
+
     WriteAndColorizeChords();
 
     // getAlbumCover();
 
-    const button = document.getElementById('toggleColumns');
+    document.getElementById('highlightChords').addEventListener('click', function() {
+        chordsHighlighted = !chordsHighlighted;
+        document.documentElement.style.setProperty('--chord-opacity', chordsHighlighted ? chordsHighlightOpacityValue : 0);
+        WriteAndColorizeChords();
+    });
+
     const song = document.querySelector('.song');
     let columnCount = 1;
     
-    button.addEventListener('click', function() {
+    document.getElementById('toggleColumns').addEventListener('click', function() {
         columnCount = columnCount < 4 ? columnCount + 1 : 1;
         song.style.columnCount = columnCount;
     });
@@ -60,24 +87,38 @@ document.addEventListener("DOMContentLoaded", function() {
 function WriteAndColorizeChords() {
     const chords = document.querySelectorAll('.chord');
 
-    // Définition des couleurs pour chaque type d'accord
-    const chordColors = {
-        'Am': 'rgb(255, 0, 0)',
-        'A': 'rgb(200, 0, 0)',
-        'C': 'rgb(255, 192, 0)',
-        'F': 'rgb(0, 192, 0)', 
-        'G': 'rgb(128, 128, 255)'
-    };
-
     // Parcourir chaque élément d'accord
     chords.forEach(chord => {
+
         const chordName = chord.getAttribute('name');
-        const color = chordColors[chordName] || '#DDD'; // Couleur par défaut si non définie
-        chord.style.setProperty('--chord-color', color);
+        let color = chordColors[chordName] || '#DDD'; // Couleur par défaut si non définie
 
         // Appliquer la couleur de fond au texte de l'accord
-        chord.style.backgroundColor = color.replace(')', ', 0.15)'); // Ajouter de la transparence
+        chord.style.backgroundColor = color.replace(')',', ' + document.documentElement.style.getPropertyValue('--chord-opacity') + ')');
+        chord.style.marginRight = chordsHighlighted ? 'calc(4px * var(--textScale))' : '0';
+
+        var content = chord.innerHTML;
+        if (!chordsHighlighted) {
+            if (content.endsWith('‑')) {
+                chord.innerHTML = chord.innerHTML.slice(0, -1);
+                chord.classList.add('hyphen-hidden-end');
+            }
+            if (content.startsWith('‑')) {
+                chord.innerHTML = chord.innerHTML.slice(1);
+                chord.classList.add('hyphen-hidden-start');
+            }
+        } else {
+            if (chord.classList.contains('hyphen-hidden-start')) {
+                chord.innerHTML = '‑' + chord.innerHTML;
+                chord.classList.remove('hyphen-hidden-start');
+            }
+            if (chord.classList.contains('hyphen-hidden-end')) {
+                chord.innerHTML += '‑';
+                chord.classList.remove('hyphen-hidden-end');
+            }
+        }
     });
+    hyphensVisible = !hyphensVisible;
 }
 
 

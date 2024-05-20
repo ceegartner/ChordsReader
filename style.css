@@ -66,7 +66,8 @@ body {
 
 .song {
     column-count: 1;
-    column-gap: 40px; 
+    column-gap: 40px;
+    margin-bottom: 30px;
 }
 
 .section-title {
@@ -77,9 +78,8 @@ body {
 }
 
 .section-title::before {
-    content: "\25B6"; /* Code Unicode du caractère ▶ */
+    content: "\0025B8"; /* Code Unicode du caractère ▶ */
     margin-right: 5px; /* Ajoute un espace entre le caractère et le texte */
-    color:#e3e3e3
 }
 
 .section {
@@ -91,27 +91,32 @@ body {
     margin-top: calc(10px * var(--spacing));
     position: relative; /* Nécessaire pour le positionnement absolu des noms d'accords */
     line-height:calc(270% * var(--spacing));
+    text-wrap: pretty;
 }
 
 .chord {
-    display: inline-block;
-    position: relative; /* Pour le positionnement des noms d'accords */
+    display: inline;
+    position: relative;
     margin-right: calc(4px * var(--textScale));
-    padding: 2px 4px;
-    white-space: pre; /* Pour conserver les espaces */
+    /* padding: 2px 4px; */
+    padding: 0;
+    white-space: pre;
     border-radius: 4px;
     line-height: 100%;
+    text-wrap: wrap;
 }
 
-.chord::before {
+.chord::after {
     content: attr(name);
     color: var(--chord-color);
     position: absolute;
     left: 0;
-    top: calc(-22px * var(--textScale) * var(--spacing));
+    top: 0;
+    /* top: calc(-22px * var(--textScale) * var(--spacing)); */
     /* top: calc(-110% * var(--spacing)); */
     font-weight: bold;
-    padding: 2px 5px;
+    padding: 2px calc(var(--chord-opacity)* 20px);;
+    transform: translateY(calc(-22px * var(--textScale) * var(--spacing)));
 }
 
 #settingsMenu {
