@@ -6,12 +6,12 @@
 body {
     font-family: 'mulish', sans-serif;
     background-color: #f4f4f4;
-    color: #333;
+    color: #272727;
     padding: 10px;
 }
 
 .whole-page {
-    background: white;
+    background: rgb(255, 254, 252);
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);

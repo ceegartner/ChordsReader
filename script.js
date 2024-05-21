@@ -1,6 +1,11 @@
 const chordsHighlightOpacityValue = 0.15;
 let chordsHighlighted = true;
 var hyphensVisible = true;
+var scrollInterval;
+var isScrolling = false;
+let scrollSpeed = 25 ; // en px/sec
+var chordsMapping = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+
 
 // Définition des couleurs pour chaque type d'accord
 const chordColors = {
@@ -20,14 +25,36 @@ document.addEventListener("DOMContentLoaded", function() {
     const chords = document.querySelectorAll('.chord');
     chords.forEach(chord => {
         chord.innerHTML = chord.innerHTML.replace(/-/g, '&#8209;'); // transforme les tirets en tirets insécables
-        const chordName = chord.getAttribute('name');
+        let chordName = chord.getAttribute('name');
+        chordName = chordName.replace('maj7','').replace('7','').replace('dim','').replace('aug','').replace('sus','').replace('add','');
         let color = chordColors[chordName] || '#DDD'; // Couleur par défaut si non définie
         chord.style.setProperty('--chord-color', color);
+        chord.setAttribute('original-chord', chordName);
     });
 
     WriteAndColorizeChords();
 
     // getAlbumCover();
+
+    document.getElementById('autoscrollButton').addEventListener('click', function() {
+        if (isScrolling) {
+            stopAutoScroll();
+            isScrolling = false;
+            this.textContent = "Autoscroll";
+        } else {
+            startAutoScroll();
+            isScrolling = true;
+            this.textContent = "Stop Scrolling";
+        }
+    });
+
+    document.getElementById('transposeUp').addEventListener('click', function() {
+        transposeChords(1);
+    });
+
+    document.getElementById('transposeDown').addEventListener('click', function() {
+        transposeChords(-1);
+    });
 
     document.getElementById('highlightChords').addEventListener('click', function() {
         chordsHighlighted = !chordsHighlighted;
@@ -83,6 +110,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
+function startAutoScroll() {
+    scrollInterval = setInterval(function() {
+        window.scrollBy(0, 1); // Vous pouvez ajuster la valeur pour changer la vitesse de défilement
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            clearInterval(scrollInterval);
+            isScrolling = false;
+            document.getElementById('autoscrollButton').textContent = "Autoscroll";
+        }
+    }, 1/(scrollSpeed/1000)); // Vous pouvez ajuster l'intervalle pour changer la vitesse de défilement
+}
+
+function stopAutoScroll() {
+    clearInterval(scrollInterval);
+}
+
 
 function WriteAndColorizeChords() {
     const chords = document.querySelectorAll('.chord');
@@ -90,7 +132,7 @@ function WriteAndColorizeChords() {
     // Parcourir chaque élément d'accord
     chords.forEach(chord => {
 
-        const chordName = chord.getAttribute('name');
+        const chordName = chord.getAttribute('original-chord');
         let color = chordColors[chordName] || '#DDD'; // Couleur par défaut si non définie
 
         // Appliquer la couleur de fond au texte de l'accord
@@ -119,6 +161,26 @@ function WriteAndColorizeChords() {
         }
     });
     hyphensVisible = !hyphensVisible;
+}
+
+
+function transposeChord(chord, steps) {
+    var chordRoot = chord.match(/^[A-G]#?/)[0];
+    var chordSuffix = chord.slice(chordRoot.length);
+    var chordIndex = chordsMapping.indexOf(chordRoot);
+    if (chordIndex === -1) return chord;
+    var newChordIndex = (chordIndex + steps + 12) % 12;
+    return chordsMapping[newChordIndex] + chordSuffix;
+}
+
+function transposeChords(steps) {
+    var chords = document.querySelectorAll('.chord');
+    chords.forEach(function(chordElement) {
+        var chordName = chordElement.getAttribute('name');
+        var transposedChord = transposeChord(chordName, steps);
+        chordElement.setAttribute('name', transposedChord);
+        //chordElement.textContent = chordElement.textContent.replace(chordName, transposedChord);
+    });
 }
 
 
